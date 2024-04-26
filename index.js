@@ -9,7 +9,10 @@ const bot = new TelegramBot(token, {polling: true});
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+    origin: 'https://incredible-marigold-4650d1.netlify.app'
+  }));
 
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
@@ -101,9 +104,11 @@ app.post('/web-data', async (req, res) => {
     }
 })
 
-const PORT = 8000;
+// const PORT = 8000;
 
-app.listen(PORT, () => console.log('server started on PORT ' + PORT))
+// app.listen(PORT, () => console.log('server started on PORT ' + PORT))
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, '0.0.0.0', () => console.log(`Server started on port ${PORT}`));
 
 
 // , ${products.map(item => item.title).join(', ')}
